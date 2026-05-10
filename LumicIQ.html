@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lumiq IQ — Intelligence Amplified</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&family=Noto+Sans+Telugu:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+
+:root{
+  --bg:#05060A;
+  --surface:#0E1119;
+  --surface2:#13161F;
+  --border:rgba(255,255,255,0.08);
+  --border2:rgba(255,255,255,0.14);
+  --text:#F5F7FF;
+  --sub:#8E92A8;
+  --muted:#4E5268;
+  --purple:#7C6FFF;
+  --purple-l:#B09FFF;
+  --purple-soft:rgba(124,111,255,0.08);
+  --orange:#FF7A3D;
+  --orange-soft:rgba(255,122,61,0.08);
+  --teal:#2DD4BF;
+  --teal-l:#7EEEE0;
+  --teal-soft:rgba(45,212,191,0.08);
+  --ff:'Syne',sans-serif;
+  --fb:'DM Sans',sans-serif;
+}
+
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--fb);
+  font-size:16px;
+  line-height:1.6;
+  overflow-x:hidden;
+}
+
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.013) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,0.013) 1px,transparent 1px);
+  background-size:50px 50px;
+  pointer-events:none;z-index:0;
+}
+
+/* ══════════════════════
+   NAV
+══════════════════════ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:999;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 5%;height:64px;
+  background:rgba(5,6,10,0.95);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+
+.nav-logo{
+  font-family:var(--ff);font-size:19px;font-weight:800;
+  color:var(--text);cursor:pointer;
+  display:flex;align-items:center;gap:10px;
+  letter-spacing:-0.3px;
+  background:none;border:none;
+}
+.nav-logo-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--purple);
+  box-shadow:0 0 12px var(--purple);
+}
+
+.nav-tabs{
+  display:flex;align-items:center;
+  background:var(--surface);
+  border:1px solid var(--border2);
+  border-radius:10px;padding:4px;gap:2px;
+}
+.nav-tab{
+  background:transparent;border:none;
+  padding:8px 20px;border-radius:7px;
+  font-family:var(--fb);font-size:13px;font-weight:400;
+  color:var(--sub);cursor:pointer;
+  transition:all 0.2s;white-space:nowrap;
+}
+.nav-tab:hover{color:var(--text);}
+.nav-tab.active{
+  background:var(--surface2);
+  color:var(--text);font-weight:500;
+}
+.nav-tab.active.hw-tab{color:var(--orange);}
+.nav-tab.active.mkt-tab{color:var(--teal);}
+
+.nav-cta{
+  background:var(--purple);color:#fff;
+  border:none;border-radius:8px;
+  padding:9px 20px;font-family:var(--fb);
+  font-size:13px;font-weight:500;cursor:pointer;
+  transition:background 0.2s,transform 0.15s;
+}
+.nav-cta:hover{background:#9080FF;transform:translateY(-1px);}
+
+/* ══════════════════════
+   PAGES
+══════════════════════ */
+.page{display:none;min-height:100vh;position:relative;z-index:1;}
+.page.active{display:block;}
+
+/* ══════════════════════
+   HUB PAGE
+══════════════════════ */
+#page-hub{
+  display:none;
+  min-height:100vh;
+  position:relative;z-index:1;
+}
+#page-hub.active{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:80px 24px 40px;
+  overflow:hidden;
+}
+
+.hub-glow{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-60%);
+  width:700px;height:700px;
+  background:radial-gradient(circle,rgba(124,111,255,0.15),transparent 65%);
+  filter:blur(30px);
+  animation:breathe 4s infinite ease-in-out;
+  pointer-events:none;
+}
+.hub-glow-o{
+  position:fixed;bottom:-80px;left:-80px;
+  width:400px;height:400px;
+  background:radial-gradient(ellipse,rgba(255,122,61,0.07),transparent 65%);
+  pointer-events:none;
+}
+.hub-glow-t{
+  position:fixed;top:-80px;right:-80px;
+  width:400px;height:400px;
+  background:radial-gradient(ellipse,rgba(45,212,191,0.07),transparent 65%);
+  pointer-events:none;
+}
+@keyframes breathe{
+  0%,100%{transform:translate(-50%,-60%) scale(1);}
+  50%{transform:translate(-50%,-60%) scale(1.1);}
+}
+
+.hub-logo{
+  display:flex;align-items:center;gap:16px;
+  margin-bottom:16px;cursor:pointer;
+  animation:popIn 0.6s cubic-bezier(0.34,1.56,0.64,1) both;
+  background:none;border:none;
+}
+@keyframes popIn{from{opacity:0;transform:scale(0.7);}to{opacity:1;transform:scale(1);}}
+
+.hub-dot{
+  width:16px;height:16px;border-radius:50%;
+  background:var(--purple);box-shadow:0 0 28px var(--purple);
+  transition:transform 0.3s,box-shadow 0.3s;
+}
+.hub-logo:hover .hub-dot{transform:scale(1.4);box-shadow:0 0 44px var(--purple);}
+
+.hub-h1{
+  font-family:var(--ff);
+  font-size:clamp(52px,8vw,108px);
+  font-weight:800;letter-spacing:-4px;
+  background:linear-gradient(120deg,#fff 0%,#b7adff 50%,var(--teal) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+
+.hub-tagline{
+  color:var(--sub);font-size:16px;font-weight:300;
+  margin-bottom:52px;
+  animation:fadeUp 0.5s ease 0.2s both;
+}
+
+.hub-divider{
+  display:flex;align-items:center;gap:14px;
+  width:100%;max-width:860px;
+  margin-bottom:24px;
+  animation:fadeIn 0.5s ease 0.35s both;
+}
+.hub-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent);}
+.hub-div-txt{font-size:11px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;white-space:nowrap;}
+
+.hub-cards{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:22px;width:100%;max-width:860px;
+  animation:fadeUp 0.6s ease 0.3s both;
+}
+
+.hub-card{
+  background:var(--surface);
+  border:1px solid var(--border2);
+  border-radius:24px;padding:40px;
+  cursor:pointer;
+  position:relative;overflow:hidden;
+  transition:transform 0.3s,border-color 0.3s,box-shadow 0.3s;
+  text-align:left;
+  border-top:none;
+  width:100%;
+  font-family:var(--fb);
+}
+.hub-card-shine{
+  position:absolute;top:0;left:0;right:0;height:2px;
+  opacity:0;transition:opacity 0.3s;
+}
+.hub-card-glow{
+  position:absolute;inset:0;opacity:0;
+  transition:opacity 0.3s;pointer-events:none;
+}
+.hub-card:hover{transform:translateY(-8px);}
+.hub-card:hover .hub-card-shine{opacity:1;}
+.hub-card:hover .hub-card-glow{opacity:1;}
+
+.hc-hw .hub-card-shine{background:linear-gradient(90deg,transparent,var(--orange),transparent);}
+.hc-hw:hover{border-color:rgba(255,122,61,0.35);box-shadow:0 16px 48px rgba(255,122,61,0.12);}
+.hc-hw .hub-card-glow{background:radial-gradient(circle at top left,rgba(255,122,61,0.12),transparent 60%);}
+
+.hc-mkt .hub-card-shine{background:linear-gradient(90deg,transparent,var(--teal),transparent);}
+.hc-mkt:hover{border-color:rgba(45,212,191,0.35);box-shadow:0 16px 48px rgba(45,212,191,0.12);}
+.hc-mkt .hub-card-glow{background:radial-gradient(circle at top left,rgba(45,212,191,0.12),transparent 60%);}
+
+.hc-icon{
+  width:66px;height:66px;border-radius:18px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:28px;margin-bottom:26px;
+  position:relative;z-index:1;
+}
+.hc-hw .hc-icon{background:var(--orange-soft);border:1px solid rgba(255,122,61,0.2);}
+.hc-mkt .hc-icon{background:var(--teal-soft);border:1px solid rgba(45,212,191,0.2);}
+
+.hc-label{
+  font-size:11px;text-transform:uppercase;
+  letter-spacing:0.12em;margin-bottom:10px;
+  font-weight:600;position:relative;z-index:1;
+}
+.hc-hw .hc-label{color:var(--orange);}
+.hc-mkt .hc-label{color:var(--teal);}
+
+.hc-title{
+  font-family:var(--ff);font-size:36px;font-weight:800;
+  line-height:1;margin-bottom:14px;letter-spacing:-1px;
+  color:var(--text);position:relative;z-index:1;
+}
+.hc-desc{
+  color:var(--sub);line-height:1.75;margin-bottom:32px;
+  font-weight:300;font-size:14px;position:relative;z-index:1;
+}
+.hc-link{
+  font-size:14px;font-weight:600;
+  transition:letter-spacing 0.2s;
+  position:relative;z-index:1;
+  display:block;
+}
+.hc-hw .hc-link{color:var(--orange);}
+.hc-mkt .hc-link{color:var(--teal);}
+.hub-card:hover .hc-link{letter-spacing:0.04em;}
+
+.hub-footer{
+  margin-top:44px;font-size:13px;color:var(--muted);
+  animation:fadeIn 0.5s ease 0.7s both;
+}
+
+/* ══════════════════════
+   SHARED HERO
+══════════════════════ */
+.hero{
+  position:relative;z-index:1;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;
+  padding:110px 6% 56px;
+  overflow:hidden;
+}
+
+.glow-purple{
+  position:absolute;top:-80px;left:50%;transform:translateX(-50%);
+  width:700px;height:500px;
+  background:radial-gradient(ellipse,rgba(124,111,255,0.14) 0%,transparent 65%);
+  pointer-events:none;
+}
+.glow-orange{
+  position:absolute;top:20%;right:-100px;
+  width:400px;height:400px;
+  background:radial-gradient(ellipse,rgba(255,122,61,0.08) 0%,transparent 65%);
+  pointer-events:none;
+}
+.glow-teal{
+  position:absolute;top:-60px;left:50%;transform:translateX(-50%);
+  width:600px;height:450px;
+  background:radial-gradient(ellipse,rgba(45,212,191,0.13) 0%,transparent 65%);
+  pointer-events:none;
+}
+.glow-teal2{
+  position:absolute;top:30%;left:-80px;
+  width:350px;height:350px;
+  background:radial-gradient(ellipse,rgba(124,111,255,0.07) 0%,transparent 65%);
+  pointer-events:none;
+}
+
+.launch-pill{
+  display:inline-flex;align-items:center;gap:8px;
+  border-radius:100px;padding:6px 16px;
+  font-size:12px;font-weight:500;letter-spacing:0.04em;
+  margin-bottom:32px;
+}
+.pill-hw{background:var(--purple-soft);border:1px solid rgba(124,111,255,0.25);color:var(--purple-l);}
+.pill-mkt{background:var(--teal-soft);border:1px solid rgba(45,212,191,0.25);color:var(--teal-l);}
+.pill-dot{width:6px;height:6px;border-radius:50%;background:var(--teal);animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+
+h1{
+  font-family:var(--ff);
+  font-size:clamp(36px,5.5vw,68px);
+  font-weight:800;line-height:1.04;
+  letter-spacing:-2px;margin-bottom:24px;max-width:780px;
+}
+.g-hw{
+  background:linear-gradient(120deg,#fff 10%,var(--purple-l) 55%,var(--teal) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.g-orange{
+  background:linear-gradient(120deg,var(--orange) 0%,#FFB347 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.g-mkt{
+  background:linear-gradient(120deg,#fff 10%,var(--teal-l) 55%,var(--purple-l) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+
+.hero-sub{
+  font-size:clamp(15px,1.6vw,18px);
+  color:var(--sub);font-weight:300;line-height:1.7;
+  max-width:520px;margin:0 auto 44px;
+}
+
+/* metrics */
+.metrics{
+  display:flex;
+  background:var(--surface);border:1px solid var(--border2);
+  border-radius:16px;overflow:hidden;
+  margin-bottom:18px;max-width:540px;width:100%;
+}
+.mc{flex:1;padding:18px 20px;text-align:center;}
+.mc+.mc{border-left:1px solid var(--border);}
+.mc-icon{font-size:18px;margin-bottom:5px;display:block;}
+.mc-val{font-family:var(--ff);font-size:20px;font-weight:800;letter-spacing:-0.5px;margin-bottom:2px;}
+.mc-val.hot{color:var(--orange);}
+.mc-val.vib{color:var(--purple-l);}
+.mc-val.ok{color:var(--teal);}
+.mc-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;}
+
+.live-row{
+  display:flex;align-items:center;justify-content:center;
+  gap:8px;font-size:13px;color:var(--muted);margin-bottom:60px;
+}
+.live-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--teal);box-shadow:0 0 8px var(--teal);
+  animation:blink 1.5s infinite;
+}
+
+/* ══════════════════════
+   SECTIONS
+══════════════════════ */
+.section{position:relative;z-index:1;padding:0 6% 68px;}
+.section-inner{max-width:960px;margin:0 auto;}
+
+.sec-label{
+  font-size:11px;font-weight:700;color:var(--muted);
+  letter-spacing:0.1em;text-transform:uppercase;
+  text-align:center;margin-bottom:34px;
+}
+
+/* feature cards */
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.feat-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:16px;padding:26px 22px;
+  transition:border-color 0.25s,transform 0.25s;
+  position:relative;overflow:hidden;
+}
+.feat-card::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  opacity:0;transition:opacity 0.3s;
+}
+.feat-card:hover{transform:translateY(-3px);}
+.feat-card:hover::after{opacity:1;}
+.fc-o:hover{border-color:rgba(255,122,61,0.28);}
+.fc-o::after{background:linear-gradient(90deg,transparent,var(--orange),transparent);}
+.fc-p:hover{border-color:rgba(124,111,255,0.28);}
+.fc-p::after{background:linear-gradient(90deg,transparent,var(--purple),transparent);}
+.fc-t:hover{border-color:rgba(45,212,191,0.28);}
+.fc-t::after{background:linear-gradient(90deg,transparent,var(--teal),transparent);}
+
+.feat-icon{
+  width:42px;height:42px;border-radius:11px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;margin-bottom:14px;
+}
+.fi-o{background:var(--orange-soft);border:1px solid rgba(255,122,61,0.2);}
+.fi-p{background:var(--purple-soft);border:1px solid rgba(124,111,255,0.2);}
+.fi-t{background:var(--teal-soft);border:1px solid rgba(45,212,191,0.2);}
+
+.feat-title{font-family:var(--ff);font-size:16px;font-weight:700;color:var(--text);margin-bottom:8px;letter-spacing:-0.2px;}
+.feat-desc{font-size:13px;color:var(--sub);line-height:1.65;font-weight:300;}
+
+/* steps */
+.steps{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  background:var(--surface);border:1px solid var(--border2);
+  border-radius:18px;overflow:hidden;
+}
+.step{padding:26px 18px;border-right:1px solid var(--border);position:relative;}
+.step:last-child{border-right:none;}
+.step-n{font-family:var(--ff);font-size:10px;font-weight:800;color:var(--muted);letter-spacing:0.08em;margin-bottom:12px;}
+.step-icon{font-size:22px;margin-bottom:10px;display:block;}
+.step-title{font-family:var(--ff);font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px;}
+.step-desc{font-size:12px;color:var(--sub);line-height:1.6;font-weight:300;}
+.step-arr{
+  position:absolute;right:-8px;top:50%;transform:translateY(-50%);
+  width:16px;height:16px;border-radius:50%;
+  background:var(--bg);border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:9px;color:var(--muted);z-index:2;
+}
+.step:last-child .step-arr{display:none;}
+
+/* services */
+.svc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+.svc-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:16px;padding:26px 22px;
+  transition:border-color 0.25s,transform 0.25s;
+  position:relative;overflow:hidden;
+}
+.svc-card::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  opacity:0;transition:opacity 0.3s;
+}
+.svc-card:hover{transform:translateY(-3px);}
+.svc-card:hover::after{opacity:1;}
+.svc-t:hover{border-color:rgba(45,212,191,0.28);}
+.svc-t::after{background:linear-gradient(90deg,transparent,var(--teal),transparent);}
+.svc-p:hover{border-color:rgba(124,111,255,0.28);}
+.svc-p::after{background:linear-gradient(90deg,transparent,var(--purple),transparent);}
+
+.svc-icon{
+  width:42px;height:42px;border-radius:11px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;margin-bottom:14px;
+  background:var(--teal-soft);border:1px solid rgba(45,212,191,0.18);
+}
+.svc-p .svc-icon{background:var(--purple-soft);border-color:rgba(124,111,255,0.18);}
+.svc-title{font-family:var(--ff);font-size:16px;font-weight:700;color:var(--text);margin-bottom:8px;letter-spacing:-0.2px;}
+.svc-desc{font-size:13px;color:var(--sub);line-height:1.65;font-weight:300;}
+
+/* why AI */
+.why-wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;}
+.why-text h2{font-family:var(--ff);font-size:clamp(24px,3vw,36px);font-weight:800;letter-spacing:-1px;margin-bottom:14px;line-height:1.1;}
+.why-text p{font-size:15px;color:var(--sub);font-weight:300;line-height:1.75;margin-bottom:10px;}
+.why-stats{display:flex;flex-direction:column;gap:12px;}
+.why-stat{
+  background:var(--surface);border:1px solid var(--border2);
+  border-radius:14px;padding:18px 22px;
+  display:flex;align-items:center;gap:18px;
+}
+.why-num{font-family:var(--ff);font-size:28px;font-weight:800;letter-spacing:-1px;color:var(--teal);flex-shrink:0;min-width:60px;}
+.why-txt{font-size:13px;color:var(--sub);line-height:1.55;font-weight:300;}
+
+/* lang chips */
+.lang-box{
+  background:var(--surface);border:1px solid var(--border2);
+  border-radius:18px;padding:32px;text-align:center;
+}
+.lang-box-title{font-family:var(--ff);font-size:18px;font-weight:700;margin-bottom:7px;}
+.lang-box-sub{font-size:14px;color:var(--sub);font-weight:300;margin-bottom:24px;}
+.lang-chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;}
+.lang-chip{
+  background:var(--surface2);border:1px solid var(--border2);
+  border-radius:100px;padding:8px 18px;
+  font-size:13px;color:var(--sub);
+  display:flex;align-items:center;gap:8px;
+  transition:border-color 0.2s,color 0.2s;
+}
+.lang-chip:hover{border-color:rgba(45,212,191,0.3);color:var(--teal-l);}
+
+/* founder */
+.founder-box{
+  max-width:580px;margin:0 auto;
+  background:var(--surface);border:1px solid var(--border2);
+  border-radius:20px;padding:40px;text-align:center;
+  position:relative;overflow:hidden;
+}
+.founder-box::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--teal),var(--purple),transparent);
+}
+.f-av{
+  width:68px;height:68px;border-radius:50%;
+  background:linear-gradient(135deg,var(--purple),var(--teal));
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--ff);font-size:24px;font-weight:800;color:#fff;
+  margin:0 auto 18px;
+}
+.f-name{font-family:var(--ff);font-size:20px;font-weight:800;letter-spacing:-0.4px;margin-bottom:4px;}
+.f-role{font-size:12px;color:var(--muted);margin-bottom:16px;}
+.f-bio{font-size:14px;color:var(--sub);line-height:1.75;font-weight:300;margin-bottom:22px;}
+.f-chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;}
+.f-chip{
+  background:var(--teal-soft);border:1px solid rgba(45,212,191,0.2);
+  border-radius:100px;padding:5px 14px;
+  font-size:12px;color:var(--teal-l);font-weight:500;
+}
+
+/* CTA */
+.cta-box{
+  max-width:580px;margin:0 auto;
+  background:var(--surface);border:1px solid var(--border2);
+  border-radius:20px;padding:44px 40px;
+  text-align:center;position:relative;overflow:hidden;
+}
+.cta-hw::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--purple),var(--teal),transparent);
+}
+.cta-mkt::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--teal),var(--purple),transparent);
+}
+.cta-hl{font-family:var(--ff);font-size:clamp(20px,3vw,28px);font-weight:800;letter-spacing:-0.8px;margin-bottom:10px;}
+.cta-sub-txt{font-size:15px;color:var(--sub);font-weight:300;line-height:1.65;margin-bottom:26px;}
+
+.form-row{
+  display:flex;gap:10px;
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:12px;padding:7px 7px 7px 18px;
+  transition:border-color 0.2s;margin-bottom:12px;
+}
+.form-row:focus-within{border-color:rgba(124,111,255,0.4);}
+.form-row.teal:focus-within{border-color:rgba(45,212,191,0.4);}
+.form-row input{
+  flex:1;background:transparent;border:none;outline:none;
+  font-family:var(--fb);font-size:14px;color:var(--text);min-width:0;
+}
+.form-row input::placeholder{color:var(--muted);}
+.form-row button{
+  background:var(--purple);color:#fff;
+  border:none;border-radius:8px;
+  padding:10px 20px;font-family:var(--fb);
+  font-size:14px;font-weight:500;cursor:pointer;
+  white-space:nowrap;transition:background 0.2s,transform 0.15s;
+}
+.form-row.teal button{background:var(--teal);color:var(--bg);}
+.form-row button:hover{opacity:0.88;transform:scale(1.02);}
+.form-note{font-size:12px;color:var(--muted);}
+.ok-msg{
+  display:none;align-items:center;justify-content:center;
+  gap:8px;font-size:14px;font-weight:500;color:var(--teal);
+  margin-bottom:12px;
+}
+.ok-msg.show{display:flex;}
+.or-div{
+  display:flex;align-items:center;gap:12px;
+  margin:18px 0;color:var(--muted);font-size:12px;
+}
+.or-div::before,.or-div::after{content:'';flex:1;height:1px;background:var(--border);}
+.wa-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  background:rgba(37,211,102,0.08);border:1px solid rgba(37,211,102,0.22);
+  border-radius:10px;padding:11px 22px;
+  color:#25D366;font-family:var(--fb);font-size:14px;font-weight:500;
+  text-decoration:none;width:100%;justify-content:center;
+  transition:background 0.2s,transform 0.15s;
+}
+.wa-btn:hover{background:rgba(37,211,102,0.16);transform:translateY(-1px);}
+.wa-svg{width:20px;height:20px;flex-shrink:0;}
+
+/* floating WA */
+.wa-float{
+  position:fixed;bottom:28px;right:28px;z-index:9999;
+  display:flex;flex-direction:column;align-items:flex-end;gap:10px;
+}
+.wa-tip{
+  background:var(--surface);border:1px solid var(--border2);
+  border-radius:10px;padding:9px 13px;
+  font-size:12px;color:var(--sub);text-align:right;
+  animation:waPop 0.4s cubic-bezier(0.34,1.56,0.64,1) 2.5s both;
+}
+.wa-bubble{
+  background:#25D366;border-radius:50px;padding:12px 20px;
+  display:flex;align-items:center;gap:10px;text-decoration:none;
+  box-shadow:0 4px 24px rgba(37,211,102,0.35);
+  transition:transform 0.2s;
+  animation:waPop 0.5s cubic-bezier(0.34,1.56,0.64,1) 1.2s both;
+}
+.wa-bubble:hover{transform:translateY(-3px) scale(1.03);}
+@keyframes waPop{from{opacity:0;transform:scale(0.5) translateY(20px);}to{opacity:1;transform:scale(1) translateY(0);}}
+.wa-lbl{font-family:var(--fb);font-size:13px;font-weight:500;color:#fff;white-space:nowrap;}
+
+/* footer */
+.pg-footer{
+  position:relative;z-index:1;
+  border-top:1px solid var(--border);padding:22px 5%;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:12px;font-size:13px;color:var(--muted);
+}
+.pg-footer-links{display:flex;gap:20px;}
+.pg-footer-links button{
+  background:transparent;border:none;
+  color:var(--muted);cursor:pointer;font-family:var(--fb);
+  font-size:13px;transition:color 0.2s;
+}
+.pg-footer-links button:hover{color:var(--sub);}
+
+/* animations */
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.6s ease,transform 0.6s ease;}
+.reveal.vis{opacity:1;transform:translateY(0);}
+
+/* responsive */
+@media(max-width:768px){
+  .hub-cards{grid-template-columns:1fr;}
+  .feat-grid{grid-template-columns:1fr;}
+  .svc-grid{grid-template-columns:1fr;}
+  .steps{grid-template-columns:1fr 1fr;}
+  .step:nth-child(2){border-right:none;}
+  .step:nth-child(3){border-top:1px solid var(--border);}
+  .step:nth-child(4){border-top:1px solid var(--border);border-right:none;}
+  .step-arr{display:none;}
+  .why-wrap{grid-template-columns:1fr;}
+  .metrics{flex-direction:column;}
+  .mc+.mc{border-left:none;border-top:1px solid var(--border);}
+  .cta-box{padding:30px 20px;}
+  .form-row{flex-direction:column;padding:10px;}
+  .wa-lbl{display:none;}
+  .wa-bubble{padding:13px;border-radius:50%;}
+  .wa-tip{display:none;}
+  .nav-cta{display:none;}
+}
+@media(max-width:480px){
+  .steps{grid-template-columns:1fr;}
+  .step{border-right:none !important;border-top:1px solid var(--border) !important;}
+  .step:first-child{border-top:none !important;}
+  .hub-h1{letter-spacing:-2px;}
+  nav{padding:0 4%;}
+  .nav-tabs{gap:0;}
+  .nav-tab{padding:7px 12px;font-size:12px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ NAV ═══════════ -->
+<nav>
+  <button class="nav-logo" onclick="showPage('hub')">
+    <div class="nav-logo-dot"></div>
+    Lumiq IQ
+  </button>
+
+  <div class="nav-tabs">
+    <button class="nav-tab active" id="tab-hub" onclick="showPage('hub')">🏠 Home</button>
+    <button class="nav-tab hw-tab" id="tab-hw" onclick="showPage('hw')">⚡ Hardware</button>
+    <button class="nav-tab mkt-tab" id="tab-mkt" onclick="showPage('mkt')">📈 Marketing</button>
+  </div>
+
+  <button class="nav-cta" onclick="showPage('hw');setTimeout(()=>document.getElementById('hw-contact').scrollIntoView({behavior:'smooth'}),80)">
+    Get demo →
+  </button>
+</nav>
+
+<!-- ═══════════════════════════
+     HUB PAGE
+═══════════════════════════ -->
+<div id="page-hub" class="page active">
+  <div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 24px 40px;position:relative;overflow:hidden;">
+    <div class="hub-glow"></div>
+    <div class="hub-glow-o"></div>
+    <div class="hub-glow-t"></div>
+
+    <button class="hub-logo" onclick="showPage('hub')">
+      <div class="hub-dot"></div>
+      <div class="hub-h1">Lumiq IQ</div>
+    </button>
+
+    <p class="hub-tagline">Intelligence Amplified &nbsp;·&nbsp; 🇮🇳 Made in India</p>
+
+    <div class="hub-divider">
+      <div class="hub-line"></div>
+      <div class="hub-div-txt">Choose a division</div>
+      <div class="hub-line"></div>
+    </div>
+
+    <div class="hub-cards">
+      <button class="hub-card hc-hw" onclick="showPage('hw')">
+        <div class="hub-card-shine"></div>
+        <div class="hub-card-glow"></div>
+        <div class="hc-icon">⚡</div>
+        <div class="hc-label">Hardware Division</div>
+        <div class="hc-title">Hardware</div>
+        <p class="hc-desc">AI-powered real-time monitoring of heat and vibration for industrial machines. Built for Indian factories.</p>
+        <span class="hc-link">Explore Hardware →</span>
+      </button>
+
+      <button class="hub-card hc-mkt" onclick="showPage('mkt')">
+        <div class="hub-card-shine"></div>
+        <div class="hub-card-glow"></div>
+        <div class="hc-icon">📈</div>
+        <div class="hc-label">Marketing Division</div>
+        <div class="hc-title">Marketing</div>
+        <p class="hc-desc">AI-driven growth, content, ads and automation for Indian businesses — in your language.</p>
+        <span class="hc-link">Explore Marketing →</span>
+      </button>
+    </div>
+
+    <p class="hub-footer">🇮🇳 &nbsp;Lumiq IQ © 2026 — Built with Intelligence</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════
+     HARDWARE PAGE
+═══════════════════════════ -->
+<div id="page-hw" class="page">
+
+  <div class="hero">
+    <div class="glow-purple"></div>
+    <div class="glow-orange"></div>
+
+    <div class="launch-pill pill-hw">
+      <div class="pill-dot"></div>
+      <span data-i18n="hwPill">Now live — AI hardware for Indian industry</span>
+    </div>
+
+    <h1>
+      <span class="g-hw" data-i18n="hwH1a">Know your machine.</span><br>
+      <span class="g-orange" data-i18n="hwH1b">Before it fails.</span>
+    </h1>
+
+    <p class="hero-sub" data-i18n="hwSub">
+      Lumiq IQ's smart hardware clips onto any industrial machine and delivers real-time AI readings of heat, vibration, and performance — so your team can act before things go wrong.
+    </p>
+
+    <div class="metrics">
+      <div class="mc">
+        <span class="mc-icon">🌡️</span>
+        <div class="mc-val hot" id="m-temp">74°C</div>
+        <div class="mc-lbl" data-i18n="mTemp">Temperature</div>
+      </div>
+      <div class="mc">
+        <span class="mc-icon">📳</span>
+        <div class="mc-val vib" id="m-vibe">3.2 mm/s</div>
+        <div class="mc-lbl" data-i18n="mVibe">Vibration</div>
+      </div>
+      <div class="mc">
+        <span class="mc-icon">🤖</span>
+        <div class="mc-val ok" id="m-status" data-i18n="mStatus">Normal</div>
+        <div class="mc-lbl" data-i18n="mAI">AI Status</div>
+      </div>
+    </div>
+
+    <div class="live-row">
+      <div class="live-dot"></div>
+      <span data-i18n="liveBar">Live data from your machine, streamed to your phone</span>
+    </div>
+  </div>
+
+  <!-- Features -->
+  <div class="section">
+    <div class="section-inner">
+      <div class="sec-label reveal" data-i18n="hwFeat">What Lumiq IQ does</div>
+      <div class="feat-grid">
+        <div class="feat-card fc-o reveal">
+          <div class="feat-icon fi-o">🌡️</div>
+          <div class="feat-title" data-i18n="f1t">Heat Monitoring</div>
+          <p class="feat-desc" data-i18n="f1d">Track real-time temperature across motors, bearings, and compressors. AI alerts you the moment heat crosses safe thresholds — before damage happens.</p>
+        </div>
+        <div class="feat-card fc-p reveal" style="transition-delay:0.1s">
+          <div class="feat-icon fi-p">📳</div>
+          <div class="feat-title" data-i18n="f2t">Vibration Analysis</div>
+          <p class="feat-desc" data-i18n="f2d">Detect abnormal vibration patterns that signal bearing wear, imbalance, or misalignment. Catch it early, fix it cheap.</p>
+        </div>
+        <div class="feat-card fc-t reveal" style="transition-delay:0.2s">
+          <div class="feat-icon fi-t">🤖</div>
+          <div class="feat-title" data-i18n="f3t">AI Control Insights</div>
+          <p class="feat-desc" data-i18n="f3d">Lumiq IQ's onboard AI learns your machine's normal behavior and tells you exactly what to adjust — speed, load, coolant — to stay in the green.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- How it works -->
+  <div class="section" style="padding-top:0">
+    <div class="section-inner">
+      <div class="sec-label reveal" data-i18n="howTitle">How it works</div>
+      <div class="steps reveal">
+        <div class="step">
+          <div class="step-n">STEP 01</div>
+          <span class="step-icon">🔩</span>
+          <div class="step-title" data-i18n="s1t">Attach the device</div>
+          <p class="step-desc" data-i18n="s1d">Clip our compact unit onto any machine. No wiring, no shutdown. Under 5 minutes.</p>
+          <div class="step-arr">›</div>
+        </div>
+        <div class="step">
+          <div class="step-n">STEP 02</div>
+          <span class="step-icon">📡</span>
+          <div class="step-title" data-i18n="s2t">Stream live data</div>
+          <p class="step-desc" data-i18n="s2d">Sends heat and vibration to our cloud via Wi-Fi or mobile — 24/7.</p>
+          <div class="step-arr">›</div>
+        </div>
+        <div class="step">
+          <div class="step-n">STEP 03</div>
+          <span class="step-icon">🧠</span>
+          <div class="step-title" data-i18n="s3t">AI analyzes it</div>
+          <p class="step-desc" data-i18n="s3d">Our AI learns what's normal and flags anything off — instantly, in plain language.</p>
+          <div class="step-arr">›</div>
+        </div>
+        <div class="step">
+          <div class="step-n">STEP 04</div>
+          <span class="step-icon">📱</span>
+          <div class="step-title" data-i18n="s4t">You get alerted</div>
+          <p class="step-desc" data-i18n="s4d">WhatsApp or SMS in Hindi, Telugu or English — what's wrong and what to do.</p>
+          <div class="step-arr">›</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="section" style="padding-top:0" id="hw-contact">
+    <div class="cta-box cta-hw reveal">
+      <div class="cta-hl" data-i18n="hwCtaHl">See it on your machine.</div>
+      <p class="cta-sub-txt" data-i18n="hwCtaSub">Running pilot deployments across India. Drop your email — we'll reach out within 24 hours for a free demo.</p>
+      <div class="ok-msg" id="hw-ok">✓ <span data-i18n="hwOk">Request received — we'll contact you within 24 hours.</span></div>
+      <div class="form-row" id="hw-form">
+        <input type="email" id="hw-email" placeholder="Your work or business email" data-i18n-ph="emailPh">
+        <button onclick="submitForm('hw')">Request demo →</button>
+      </div>
+      <p class="form-note" id="hw-note" data-i18n="hwNote">Free pilot · No hardware cost · Support in Hindi, Telugu & English</p>
+      <div class="or-div">or reach us directly</div>
+      <a href="https://wa.me/919999999999?text=Hi%20Lumiq%20IQ%2C%20I%27d%20like%20a%20demo%20for%20machine%20monitoring." class="wa-btn" target="_blank" rel="noopener">
+        <svg class="wa-svg" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <span data-i18n="waBtn">Chat on WhatsApp</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <span>🇮🇳 &nbsp;Lumiq IQ Hardware · © 2026</span>
+    <div class="pg-footer-links">
+      <button onclick="showPage('hub')">Home</button>
+      <button onclick="showPage('mkt')">Marketing</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════
+     MARKETING PAGE
+═══════════════════════════ -->
+<div id="page-mkt" class="page">
+
+  <div class="hero">
+    <div class="glow-teal"></div>
+    <div class="glow-teal2"></div>
+
+    <div class="launch-pill pill-mkt">
+      <div class="pill-dot"></div>
+      AI-powered marketing for Indian businesses
+    </div>
+
+    <h1>
+      <span class="g-mkt">Grow smarter.<br>Market in your language.</span>
+    </h1>
+
+    <p class="hero-sub">
+      LumiqIQ Marketing helps businesses across India grow faster using AI — content, ads, and customer insights in Telugu, Hindi, English and more.
+    </p>
+
+    <button class="nav-cta" style="font-size:15px;padding:14px 32px;border-radius:10px;background:var(--teal);color:var(--bg);"
+      onclick="document.getElementById('mkt-contact').scrollIntoView({behavior:'smooth'})">
+      Start growing →
+    </button>
+  </div>
+
+  <!-- Services -->
+  <div class="section">
+    <div class="section-inner">
+      <div class="sec-label reveal">What we do</div>
+      <div class="svc-grid">
+        <div class="svc-card svc-t reveal">
+          <div class="svc-icon">✍️</div>
+          <div class="svc-title">AI Content Creation</div>
+          <p class="svc-desc">Blogs, social posts, product copy, WhatsApp campaigns — AI-created, human-reviewed, in your language. Fresh content every week.</p>
+        </div>
+        <div class="svc-card svc-t reveal" style="transition-delay:0.1s">
+          <div class="svc-icon">📣</div>
+          <div class="svc-title">Smart Ad Campaigns</div>
+          <p class="svc-desc">Google and Meta ads built and optimized by AI. We find your right audience, test what works, cut what doesn't — budget goes further.</p>
+        </div>
+        <div class="svc-card svc-p reveal" style="transition-delay:0.1s">
+          <div class="svc-icon fi-p" style="background:var(--purple-soft);border-color:rgba(124,111,255,0.18);">📊</div>
+          <div class="svc-title">Customer Insights</div>
+          <p class="svc-desc">Understand who's buying, why they buy, and how to reach more of them. AI analytics turned into simple action points your team can use today.</p>
+        </div>
+        <div class="svc-card svc-p reveal" style="transition-delay:0.2s">
+          <div class="svc-icon fi-p" style="background:var(--purple-soft);border-color:rgba(124,111,255,0.18);">🤖</div>
+          <div class="svc-title">AI Chat & Automation</div>
+          <p class="svc-desc">WhatsApp bots, lead follow-up and customer support automation — set up once, runs 24/7. Never miss an enquiry again.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Why AI -->
+  <div class="section" style="padding-top:0">
+    <div class="section-inner">
+      <div class="why-wrap">
+        <div class="why-text reveal">
+          <div class="sec-label" style="text-align:left">Why AI marketing</div>
+          <h2>More results.<br>Less budget.</h2>
+          <p>Traditional agencies charge big fees and move slow. AI lets us move 10× faster, test 10× more ideas, and deliver results that used to cost 5× more.</p>
+          <p>We keep the team lean and pass the savings to you — with better outcomes.</p>
+        </div>
+        <div class="why-stats reveal" style="transition-delay:0.15s">
+          <div class="why-stat">
+            <div class="why-num">3×</div>
+            <div class="why-txt">More content per month vs traditional agencies at the same price</div>
+          </div>
+          <div class="why-stat">
+            <div class="why-num">40%</div>
+            <div class="why-txt">Average reduction in cost-per-lead within 60 days of AI-optimized campaigns</div>
+          </div>
+          <div class="why-stat">
+            <div class="why-num">24/7</div>
+            <div class="why-txt">Automated lead nurturing so no enquiry ever goes cold</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Languages -->
+  <div class="section" style="padding-top:0">
+    <div class="section-inner">
+      <div class="lang-box reveal">
+        <div class="lang-box-title">We market in your customers' language</div>
+        <p class="lang-box-sub">AI-translated, human-reviewed — sounds natural, not robotic</p>
+        <div class="lang-chips">
+          <div class="lang-chip">తె Telugu</div>
+          <div class="lang-chip">हि Hindi</div>
+          <div class="lang-chip">EN English</div>
+          <div class="lang-chip">த Tamil</div>
+          <div class="lang-chip">ಕ Kannada</div>
+          <div class="lang-chip">മ Malayalam</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="section" style="padding-top:0" id="mkt-contact">
+    <div class="cta-box cta-mkt reveal">
+      <div class="cta-hl">Let's grow your business.</div>
+      <p class="cta-sub-txt">Tell us your email and we'll reach out within 24 hours for a free AI marketing audit — no cost, no commitment.</p>
+      <div class="ok-msg" id="mkt-ok">✓ Got it! We'll be in touch within 24 hours.</div>
+      <div class="form-row teal" id="mkt-form">
+        <input type="email" id="mkt-email" placeholder="Your business email">
+        <button onclick="submitForm('mkt')">Get free audit →</button>
+      </div>
+      <p class="form-note" id="mkt-note">Free audit · No commitment · Response in Telugu, Hindi or English</p>
+      <div class="or-div">or chat directly</div>
+      <a href="https://wa.me/919999999999?text=Hi%2C%20I%27d%20like%20to%20know%20more%20about%20LumiqIQ%20Marketing." class="wa-btn" target="_blank" rel="noopener">
+        <svg class="wa-svg" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Chat on WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <span>🇮🇳 &nbsp;LumiqIQ Marketing · © 2026</span>
+    <div class="pg-footer-links">
+      <button onclick="showPage('hub')">Home</button>
+      <button onclick="showPage('hw')">Hardware</button>
+    </div>
+  </div>
+</div>
+
+<!-- FLOATING WHATSAPP -->
+<div class="wa-float">
+  <div class="wa-tip">💬 Chat in Telugu, Hindi or English</div>
+  <a class="wa-bubble" href="https://wa.me/919999999999?text=Hi%20Lumiq%20IQ%2C%20I%27d%20like%20to%20know%20more." target="_blank" rel="noopener">
+    <svg class="wa-svg" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <span class="wa-lbl">Chat with us</span>
+  </a>
+</div>
+
+<script>
+// ══ PAGE SWITCHER ══
+function showPage(id) {
+  // hide all pages
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  // show selected
+  document.getElementById('page-' + id).classList.add('active');
+  // scroll to top
+  window.scrollTo(0, 0);
+  // update nav tabs
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  // re-init reveal animations
+  setTimeout(initReveal, 60);
+}
+
+// ══ SCROLL REVEAL ══
+function initReveal() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('vis');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal:not(.vis)').forEach(el => obs.observe(el));
+}
+initReveal();
+
+// ══ LIVE METRICS ══
+setInterval(() => {
+  const t = document.getElementById('m-temp');
+  const v = document.getElementById('m-vibe');
+  if (t) t.textContent = Math.round(73 + Math.random() * 3) + '°C';
+  if (v) v.textContent = (3.0 + Math.random() * 0.5).toFixed(1) + ' mm/s';
+}, 2200);
+
+// ══ FORM SUBMIT ══
+function submitForm(type) {
+  const input = document.getElementById(type + '-email');
+  const val = input.value.trim();
+  if (!val || !val.includes('@')) {
+    input.style.outline = '2px solid #FF6B6B';
+    input.style.borderRadius = '4px';
+    setTimeout(() => input.style.outline = '', 700);
+    return;
+  }
+  document.getElementById(type + '-form').style.display = 'none';
+  document.getElementById(type + '-note').style.display = 'none';
+  document.getElementById(type + '-ok').classList.add('show');
+}
+document.getElementById('hw-email').addEventListener('keydown', e => { if (e.key === 'Enter') submitForm('hw'); });
+document.getElementById('mkt-email').addEventListener('keydown', e => { if (e.key === 'Enter') submitForm('mkt'); });
+</script>
+</body>
+</html>
